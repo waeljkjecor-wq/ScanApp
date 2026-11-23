@@ -50,6 +50,9 @@ dependencies {
     // سكنر المستندات من Google: قص تلقائي + عدة صفحات + PDF
     implementation("com.google.android.gms:play-services-mlkit-document-scanner:16.0.0-beta1")
 
+    // لتوليد QR والباركود
+    implementation("com.google.zxing:core:3.5.3")
+
     // لعرض صور الصفحات المصغرة
     implementation("io.coil-kt:coil-compose:2.7.0")
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoFixHigh
 import androidx.compose.material.icons.filled.DocumentScanner
 import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material3.Icon
@@ -77,6 +78,12 @@ fun MainScreen() {
                     icon = { Icon(Icons.Default.DocumentScanner, contentDescription = null) },
                     label = { Text("سكنر") }
                 )
+                NavigationBarItem(
+                    selected = tab == 2,
+                    onClick = { tab = 2 },
+                    icon = { Icon(Icons.Default.AutoFixHigh, contentDescription = null) },
+                    label = { Text("توليد") }
+                )
             }
         }
     ) { padding ->
@@ -87,7 +94,8 @@ fun MainScreen() {
         ) {
             when (tab) {
                 0 -> BarcodeScreen()
-                else -> ScannerScreen()
+                1 -> ScannerScreen()
+                else -> GeneratorScreen()
             }
         }
     }
