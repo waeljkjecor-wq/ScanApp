@@ -50,6 +50,12 @@ dependencies {
     // سكنر المستندات من Google: قص تلقائي + عدة صفحات + PDF
     implementation("com.google.android.gms:play-services-mlkit-document-scanner:16.0.0-beta1")
 
+    // قراءة الباركود من صورة بالمعرض
+    implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1")
+
+    // فتح الروابط داخل التطبيق (Chrome Custom Tabs)
+    implementation("androidx.browser:browser:1.8.0")
+
     // لتوليد QR والباركود
     implementation("com.google.zxing:core:3.5.3")
 
