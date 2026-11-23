@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ما نحتاج صلاحية كاميرا: مكتبات Google تفتح الكاميرا بنفسها -->
+
+    <application
+        android:icon="@android:drawable/ic_menu_camera"
+        android:label="سكنر"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ScanApp">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- حتى نقدر نشارك ملفات PDF مع التطبيقات الثانية (واتساب، تلكرام...) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ينزّل موديل الباركود وقت تنصيب التطبيق بدل أول استخدام -->
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="barcode_ui" />
+    </application>
+</manifest>
