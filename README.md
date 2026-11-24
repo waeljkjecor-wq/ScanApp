@@ -30,7 +30,7 @@
 
 ## المكتبات الأساسية
 
-- `play-services-code-scanner`: قارئ باركود جاهز من Google، وما يحتاج صلاحية كاميرا.
+- `CameraX` + `ML Kit barcode-scanning`: كاميرا الباركود الخاصة بالتطبيق، مدمجة وتشتغل بدون Play Services.
 - `play-services-mlkit-document-scanner`: سكنر مستندات جاهز من Google، بيه عدة صفحات وتصدير PDF.
 
 ## أفكار تطورها بعدين (تمارين)

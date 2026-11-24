@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ما نحتاج صلاحية كاميرا: مكتبات Google تفتح الكاميرا بنفسها -->
+    <!-- كاميرا قارئ الباركود -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:icon="@android:drawable/ic_menu_camera"
@@ -28,10 +30,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <!-- ينزّل موديل الباركود وقت تنصيب التطبيق بدل أول استخدام -->
-        <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="barcode_ui,barcode" />
     </application>
 </manifest>

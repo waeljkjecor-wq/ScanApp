@@ -44,14 +44,18 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.3")
     implementation("androidx.core:core-ktx:1.13.1")
 
-    // قارئ الباركود الجاهز من Google (ما يحتاج صلاحية كاميرا)
-    implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
+    // كاميرا التطبيق (CameraX) + ربطها ويه ML Kit
+    val camerax = "1.4.0"
+    implementation("androidx.camera:camera-camera2:$camerax")
+    implementation("androidx.camera:camera-lifecycle:$camerax")
+    implementation("androidx.camera:camera-view:$camerax")
+    implementation("androidx.camera:camera-mlkit-vision:$camerax")
 
     // سكنر المستندات من Google: قص تلقائي + عدة صفحات + PDF
     implementation("com.google.android.gms:play-services-mlkit-document-scanner:16.0.0-beta1")
 
-    // قراءة الباركود من صورة بالمعرض
-    implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1")
+    // قارئ الباركود مدمج داخل التطبيق (ما يحتاج Play Services)
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
 
     // فتح الروابط داخل التطبيق (Chrome Custom Tabs)
     implementation("androidx.browser:browser:1.8.0")

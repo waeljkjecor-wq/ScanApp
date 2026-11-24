@@ -1,7 +1,10 @@
 package com.example.scanapp
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -52,8 +55,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
-import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import org.json.JSONArray
 import org.json.JSONObject
@@ -110,12 +111,16 @@ fun BarcodeScreen() {
         error = null
     }
 
-    // مسح بالكاميرا (شاشة Google الجاهزة: بيها فلاش وزووم)
+    // مسح بالكاميرا: نطلب صلاحية الكاميرا أول مرة، بعدين نفتح كاميرا التطبيق
+    var showCamera by remember { mutableStateOf(false) }
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) showCamera = true else error = "لازم تسمح للتطبيق يستخدم الكاميرا"
+    }
+
     fun scanCamera() {
-        val options = GmsBarcodeScannerOptions.Builder().enableAutoZoom().build()
-        GmsBarcodeScanning.getClient(context, options).startScan()
-            .addOnSuccessListener { b -> b.rawValue?.let { addResult(it, b.format) } }
-            .addOnFailureListener { error = "صار خطأ: ${it.message}" }
+        val granted = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) ==
+            PackageManager.PERMISSION_GRANTED
+        if (granted) showCamera = true else permission.launch(Manifest.permission.CAMERA)
     }
 
     // مسح من صورة بالمعرض (ما يحتاج صلاحية تخزين)
@@ -133,6 +138,17 @@ fun BarcodeScreen() {
         } catch (e: Exception) {
             error = "ما كدرت أفتح الصورة"
         }
+    }
+
+    if (showCamera) {
+        CameraScanner(
+            onResult = { raw, format ->
+                showCamera = false
+                addResult(raw, format)
+            },
+            onClose = { showCamera = false }
+        )
+        return
     }
 
     val filtered = if (query.isBlank()) history else history.filter {
